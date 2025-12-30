@@ -1,155 +1,175 @@
-# Monitoramento-com-Zabbix
+# Monitoramento com Zabbix
+
 ## 📌 Visão Geral
 
-Este projeto consiste na implementação de um laboratório de monitoramento de infraestrutura utilizando o Zabbix, com o objetivo de simular um ambiente real de TI.
-O Zabbix Server foi configurado em um Ubuntu Server, responsável por monitorar múltiplos hosts Linux e Windows em um ambiente virtualizado com VirtualBox.
+Este projeto apresenta um **laboratório completo de monitoramento de infraestrutura** utilizando o Zabbix, uma solução open-source de monitoramento amplamente utilizada no mercado para infraestrutura, servidores e serviços de TI. :contentReference[oaicite:0]{index=0}
 
-O laboratório foi desenvolvido com foco em monitoramento proativo, análise de desempenho, disponibilidade de serviços e boas práticas de infraestrutura.
+O laboratório foi construído com foco em **coleta de métricas, triggers, alertas e dashboards**, simulando um ambiente corporativo real. O Zabbix Server foi instalado em um **Ubuntu Server**, monitorando hosts Linux e Windows executando em **VirtualBox**.
+
+---
 
 ## 🎯 Objetivos do Projeto
 
-- Implementar um servidor de monitoramento centralizado
+- Implementar um servidor de monitoramento centralizado.
+- Monitorar hosts **Linux** e **Windows** via **Zabbix Agent**.
+- Configurar **itens, triggers, alertas e dashboards**.
+- Simular um ambiente corporativo virtualizado.
+- Consolidar conhecimentos em infraestrutura, redes e Linux.
 
-- Monitorar hosts Linux e Windows via Zabbix Agent
-
-- Configurar triggers, itens e dashboards
-
-- Simular um ambiente corporativo virtualizado
-
-- Consolidar conhecimentos em infraestrutura, redes e Linux
+---
 
 ## 🧱 Arquitetura do Ambiente
 
-### Topologia
+### Topologia Lógica
 
-- Zabbix Server
+O ambiente foi montado com os seguintes componentes:
 
-- Ubuntu Server
+- **Zabbix Server** executando em Ubuntu Server.
+- **Hosts monitorados**:
+  - Ubuntu Server (com Zabbix Agent instalado).
+  - Windows Server (com Zabbix Agent instalado).
+- **Hypervisor**: Oracle VirtualBox.
 
-- Hosts Monitorados
+A comunicação entre o servidor e os agentes é realizada via protocolos e portas padrão do Zabbix (TCP 10050/10051).
 
-  Ubuntu Server (Zabbix Agent)
+---
 
-  Windows Server (Zabbix Agent)
+## 📦 Tecnologias Utilizadas
 
-- Hypervisor
+- **Zabbix Server** e **Zabbix Agent**
+- **Ubuntu Server**
+- **Windows Server**
+- **Oracle VirtualBox**
+- **SSH** para administração de hosts
+- **Banco de dados** (MySQL/MariaDB quando aplicável)
 
-  Oracle VirtualBox
+---
 
-## Diagrama (opcional)
+## ⚙️ Configuração do Ambiente
 
-Inserir imagem do diagrama da rede aqui
+### Preparação das Máquinas
 
-## ⚙️ Tecnologias Utilizadas
+As máquinas virtuais foram criadas no VirtualBox com as seguintes finalidades:
 
-- Zabbix Server
+   <img src="assets/images/virtualbox_vms.png" width="900">
 
-- Zabbix Agent
+- Definição de rede adequada (Host-only ou NAT + Host-only).
+- Endereçamento IP estático para comunicação confiável.
+- Atualização dos sistemas operacionais.
+- Configuração de hostname em todas as VMs.
 
-- Ubuntu Server
+---
 
-- Windows Server
+## 🧩 Instalação do Zabbix Server
 
-- VirtualBox
+1. Adição do repositório oficial do Zabbix:
 
-- SSH
+   <img src="assets/images/zabbix_page.png" width="900">
 
-- MySQL / MariaDB (caso aplicável)
+2. Instalação dos pacotes do Zabbix Server e frontend web.
 
-## 🔧 Configurações do Ambiente
-- Sistema Operacional
+3. Configuração do banco de dados e ajustes em `zabbix_server.conf`.
 
-  Ubuntu Server (ubuntu-24.04.3)
+4. Inicialização e validação dos serviços do Zabbix:
 
-- Rede
+   <img src="assets/images/zabbix_server_status.png" width="900">
 
-  Tipo de rede: Host-only / NAT + Host-only
-  Comunicação via SSH e TCP (porta 10050/10051)
+5. Acesso ao dashboard pela interface web:
 
-  ## Preparação do Ambiente
-- Criação das máquinas virtuais no VirtualBox
+   <img src="assets/images/dashboard_inicial.png" width="900">
 
-    <img width="1920" height="1080" alt="virtualbox_vms" src="https://github.com/user-attachments/assets/9dba5327-2358-4769-8e2a-85091288dbe1" />
-  
-- Configuração de rede e endereçamento IP
-- Atualização dos sistemas operacionais
-- Configuração de hostname em todas as VMs
+---
 
-## Instalação do Zabbix Server
-- Adição do repositório oficial do Zabbix
+## 🐧 Instalação do Zabbix Agent – Linux
 
-    <img width="1908" height="917" alt="image" src="https://github.com/user-attachments/assets/686143ba-f94e-4be6-a7e2-2190d9604566" />
+1. Instalação do agente no Ubuntu Server:
 
-  
-- Instalação do Zabbix Server e frontend
-- Configuração do banco de dados
-- Ajustes no arquivo zabbix_server.conf
-- Inicialização e validação dos serviços
-  
-    <img width="1277" height="798" alt="image" src="https://github.com/user-attachments/assets/0b323142-68e9-428f-8505-a21f105785b3" />
+   <img src="assets/images/zabbix_agent_page.png" width="900">
 
-- Frontend inicializado
+2. Configuração do arquivo `zabbix_agentd.conf` com os parâmetros `Server` e `ServerActive`:
 
-  <img width="1917" height="899" alt="zabbix_config_login" src="https://github.com/user-attachments/assets/45202899-361f-4fb6-9a09-9702e1c5d49a" />
+   <img src="assets/images/ubuntu_agent-config.png" width="900">
 
-  <img width="1917" height="848" alt="dashboard_inicial" src="https://github.com/user-attachments/assets/05fdedb3-6b2c-40e7-a5b7-d99bc3f6071e" />
+3. Inicialização e validação:
 
-  
-## Instalação do Zabbix Agent no Linux
-- Instalação do pacote zabbix-agent
-  
- <img width="1913" height="961" alt="zabbix_agent_page" src="https://github.com/user-attachments/assets/f2523925-e53c-4ff9-84cb-2d1cdfea294a" />
+   <img src="assets/images/ubuntu_agent_status.png" width="900">
 
-- Configuração do arquivo zabbix_agentd.conf
+4. Verificação de comunicação com o Zabbix Server.
 
-  <img width="1281" height="812" alt="ubuntu_agent-config" src="https://github.com/user-attachments/assets/33f4bfa7-ee49-47e0-8d12-89c2d3a65f23" />
+---
 
+## 📊 Monitoramentos Implementados
 
-- Definição do Server e ServerActive
-- Inicialização do serviço
+Esses foram os itens básicos implementados:
 
-    <img width="1280" height="799" alt="ubuntu_agent_status" src="https://github.com/user-attachments/assets/1f3054d2-d86b-4b84-ac76-e079b2fcbe31" />
-
-  
-- Teste de comunicação com o Zabbix Server
-
-## Instalação do Zabbix Agent no Windows
-- Download e instalação do Zabbix Agent
-- Configuração do arquivo de configuração
-- Criação e inicialização do serviço
-- Liberação das portas no firewall
-- Validação do host no frontend do Zabbix
-
-## Monitoramentos Implementados
-
-<img width="1916" height="852" alt="latest_data_ubuntu_host" src="https://github.com/user-attachments/assets/1d2d3de5-afd8-43ab-bb30-f01107773835" />
+   <img src="assets/images/latest_data_ubuntu_host.png" width="900">
 
 - Uso de CPU
 - Uso de memória RAM
 - Espaço em disco
-- Disponibilidade do host
+- Disponibilidade de host (ICMP)
 - Status do Zabbix Agent
 
-## Aprendizados
-- Instalação e configuração completa do Zabbix
-- Monitoramento de ambientes heterogêneos
-- Importância do monitoramento proativo
-- Troubleshooting de rede e agentes
-- Organização de documentação técnica
+---
 
-## 📌 Próximos passos do projeto:
+## 🚨 Configuração de Triggers e Alertas
 
-- Criação de dashboards personalizados (estilo NOC)
-- Configuração de triggers e alertas
-- Evolução da documentação para portfólio
-- Monitoramento via SNMP
-- Integração com e-mail ou Telegram
+### Trigger: Uso de CPU acima de 80% por 5 minutos
 
-## Autor
-- Nome: Matheus Lima
-- GitHub: https://github.com/the-matheuslima
-- LinkedIn: https://www.linkedin.com/in/the-matheuslima/
+   <img src="assets/images/trigger_cpu_ubuntu_host.png" width="900">
 
-## Licença
-- Projeto de caráter educacional
-- Uso livre para fins de estudo e aprendizado
+
+Essa trigger foi criada para detectar sobrecarga contínua de CPU e evitar falsos positivos gerados por picos momentâneos.
+
+- **Objetivo:** identificar quando o host está sob carga alta por um período contínuo, indicando necessidade de ação.
+- **Expressão:** média da utilização da CPU nos últimos 5 minutos > 80%.
+
+#### Fases do teste
+
+#### CPU normal antes do teste
+
+   <img src="assets/images/trigger_cpu_test_lastdata_inicio_ubuntu_host.png" width="900">
+
+#### Execução de carga alta
+
+   <img src="assets/images/trigger_cpu_test_comando_ubuntu_host.png" width="900">
+
+#### Trigger disparada
+
+   <img src="assets/images/trigger_cpu_test_ubuntu_host.png" width="900">
+
+## 🧠 Aprendizados
+
+Durante a execução do projeto, foram desenvolvidas diversas habilidades práticas:
+
+- Instalação e configuração completa do Zabbix.
+- Monitoramento de ambientes heterogêneos (Linux/Windows).
+- Configuração de triggers e alertas.
+- Importância do monitoramento proativo para mitigação de falhas.
+- Troubleshooting de conectividade e agentes.
+- Organização de documentação técnica.
+
+---
+
+## 📌 Próximos Passos
+
+Possíveis evoluções do projeto:
+
+- Criação de **dashboards personalizados** 
+- Monitoramento adicional por **SNMP**.
+- Integração de alertas por **e-mail ou Telegram**.
+- Refinamento da documentação como **portfólio profissional**.
+
+---
+
+## 👤 Autor
+
+- **Nome:** Matheus Lima  
+- **GitHub:** https://github.com/the-matheuslima  
+- **LinkedIn:** https://www.linkedin.com/in/the-matheuslima/
+
+---
+
+## 📄 Licença
+
+Projeto de caráter educacional, com uso livre para fins de estudo e aprendizado.
